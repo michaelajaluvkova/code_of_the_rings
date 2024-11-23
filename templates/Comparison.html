@@ -1,44 +1,57 @@
 {% extends "layout.html" %}
 
-    <style>
-        .form-container {
-            width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            margin: 50px auto;
-            background-color: #f9f9f9;
-        }
-        .form-container h2 {
-            text-align: center;
-        }
-        .form-container select,
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        .form-container button {
-            background-color: #148ab8;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background-color: #117a98;
-        }
-    </style>
+<style>
+    .form-container {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin: 50px auto;
+        background-color: #f9f9f9;
+    }
+    .form-container h2 {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .form-container label {
+        display: block;  /* Make sure label is block-level */
+        margin-bottom: 5px; /* Add some space below the label */
+        font-size: 14px;
+        color: #333;
+    }
+    .form-container select,
+    .form-container input[type="datetime-local"],
+    .form-container button {
+        width: 100%; /* Ensure input fields take full width */
+        padding: 10px;
+        margin-bottom: 10px; /* Add space between inputs */
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;  /* Ensures padding is included in width calculation */
+    }
+    .form-container input[type="datetime-local"] {
+        font-family: 'Open Sans', sans-serif;  /* Ensures the font is consistent */
+    }
+    .form-container button {
+        background-color: #148ab8;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .form-container button:hover {
+        background-color: #117a98;
+    }
+</style>
 
 {% block title %}
 <h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Comparison</h1>
 {% endblock %}
 
 {% block content %}
-    <div class="form-container">
-        <h2 style="text-align: center; font-family: 'Open Sans', sans-serif;">Please select crypocurrency and what you want to compare it with.</h2>
-            <form method="POST" action="{{ url_for('result_comparison') }}" style="text-align: center;">
+    <div class="form-container" style="text-align: center; font-family: 'Open Sans', sans-serif;">
+        <h2>Please select cryptocurrency and what you want to compare it with.</h2>
+        <form method="POST" action="{{ url_for('comparison') }}">
+            <!-- Cryptocurrency selection -->
             <label for="cryptocurrency">Cryptocurrency:</label>
             <select name="cryptocurrency" id="cryptocurrency">
                 {% for crypto in cryptocurrencies %}
@@ -46,6 +59,7 @@
                 {% endfor %}
             </select>
 
+            <!-- Comparison selection -->
             <label for="comparison">Comparison:</label>
             <select name="comparison" id="comparison">
                 {% for compare in comparisons %}
@@ -53,7 +67,14 @@
                 {% endfor %}
             </select>
 
-            <button type="submit">Submit</button>
+            <!-- Date and Time selection -->
+            <label for="end_time">Select Date and Time:</label>
+            <input type="datetime-local" name="date" id="end_time" name="end_time">
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-secondary">Submit</button>
         </form>
     </div>
 {% endblock %}
+
+
