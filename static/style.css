@@ -1,0 +1,11 @@
+.navbar {
+  background-color: #148ab8;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-brand {
+  font-family: 'Orbitron', sans-serif; /* Orbitron font for the brand */
+  font-size: 24px;
+  font-weight: bold;
+  color: white; /* White text color */
+}
