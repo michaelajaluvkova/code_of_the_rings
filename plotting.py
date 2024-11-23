@@ -149,6 +149,6 @@ class Plotting():
 
         return cagr1, cagr2, final_value1, final_value2, years, investment_return1, investment_return2
 
-
+ 
 
 
