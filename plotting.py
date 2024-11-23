@@ -55,7 +55,7 @@ class Plotting():
         plt.title(f"Investment Growth of {first_crypto} & {second_crypto} Over Time\nInitial Investment: {initial_investment} USD", fontsize=16, fontweight='bold', color='darkblue', pad=20)
         plt.grid(True, linestyle='--', alpha=0.7)
         fig.tight_layout()
-        plt.savefig('crypto.png')
+        plt.savefig('media/crypto.png')
         plt.show()
 
 
@@ -105,6 +105,6 @@ class Plotting():
         plt.title(f"Investment Growth of {first_crypto} & {stock} Over Time\nInitial Investment: {initial_investment} USD", fontsize=16, fontweight='bold', color='darkblue', pad=20)
         plt.grid(True, linestyle='--', alpha=0.7)
         fig.tight_layout()
-        plt.savefig('crypto.png')
+        plt.savefig('media/crypto.png')
         plt.show()
         return
