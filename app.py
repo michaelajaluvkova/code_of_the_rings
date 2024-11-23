@@ -8,12 +8,17 @@ def home():
 
 @app.route('/comparison', methods=['GET', 'POST'])
 def comparison():
+    # doplnit funkce na listy!
     cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
     comparisons = ['Stock', 'USD']
 
     if request.method == "POST":
         selected_crypto = request.form.get('cryptocurrency')
         selected_comparison = request.form.get('comparison')
+        if selected_crypto not in cryptocurrencies or selected_comparison not in comparisons:
+            error_message = "Invalid selection! Please choose a valid cryptocurrency and comparison."
+            return render_template("Comparison.html", cryptocurrencies=cryptocurrencies, comparisons=comparisons,
+                                   error_message=error_message)
 
         return render_template("result_comparison.html",
                                selected_crypto=selected_crypto,
