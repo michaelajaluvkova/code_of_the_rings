@@ -44,12 +44,12 @@
 </style>
 
 {% block title %}
-<h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Vyber, srovnej, rozhodni. Kryptoměnové souboje začínají právě teď!</h1>
+<h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Srovnávač kryptoměn</h1>
 {% endblock %}
 
 {% block content %}
     <div class="form-container" style="text-align: center; font-family: 'Open Sans', sans-serif;">
-        <h2>Si fanouškem kryptoměn, ale ztrácíš se v grafech a statistikách? Nevadí! Naše aplikace je tvůj spolehlivý průvodce kryptosvětem. Srovnávej dvě kryptoměny najednou, objevuj jejich silné stránky, slabiny a zjisti, která z nich má navrch. Případně kryptoměnu srovnej s indexem S&P 500 nebo inflací. Ať už se rozhoduješ, kam investovat, nebo jen chceš mít přehled, my ti ukážeme fakta jasně a srozumitelně.</h2>
+        <h2>Vyberte kryptoměnu a srovnávací bázi (kryptoměnu, index či měnu)</h2>
         <form method="POST" action="{{ url_for('comparison') }}">
             <!-- Cryptocurrency selection -->
             <label for="cryptocurrency">Cryptocurrency:</label>
