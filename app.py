@@ -53,10 +53,6 @@ def comparison():
                                        error_messages))  # Join the error messages with <br> for new lines
 
         # here enter values for the template to show!
-        data = downloader.main(start_date=start_date, end_date=end_date)
-        plot = Plotting()
-        plot.run_plot(start_date, end_date, data, initial_investment, first=first,
-                      second=second)  #### creates media/crypto.png
 
         return render_template("comparison.html", cryptocurrencies=cryptocurrencies, comparisons=comparisons, posted=1)
 
@@ -65,7 +61,9 @@ def comparison():
 
 @app.route('/calculator', methods=['GET', 'POST'])
 def calculator():
-    cryptocurrencies = downloader.get_top_10_cryptos()
+    cryptocurrencies = downloader.get_top_10_cryptos_denca()
+    comparisons = downloader.get_top_10_cryptos_denca() + ['S&P 500']
+    
     if request.method == "POST":
         coin = request.form.get('coin')
         start_date = request.form.get('start_date')
@@ -112,6 +110,11 @@ def calculator():
             year_word = "roku"
         else:
             year_word = "let"
+            
+        data = downloader.main(start_date=start_date, end_date=end_date)
+        plot = Plotting()
+        plot.run_plot(start_date, end_date, data, initial_investment, first=first,
+                      second=second)  #### creates media/crypto.png
 
         cagr, cagr2, final_value, final_value2, years, investment_return, investment_return2 = plot.investment(
             initial_investment, start_date, end_date, data, first=coin, second=coin)
