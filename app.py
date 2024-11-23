@@ -120,13 +120,13 @@ def calculator():
             
         data = downloader.main(start_date=start_date, end_date=end_date)
         plot = Plotting()
-        plot.run_plot(start_date, end_date, data, initial_investment, first=first,
-                      second=second)  #### creates media/crypto.png
+        plot.run_plot(start_date, end_date, data, initial_investment, first=coin,
+                      second=seleted_comparison)  #### creates media/crypto.png
 
         cagr, cagr2, final_value, final_value2, years, investment_return, investment_return2 = plot.investment(
-            initial_investment, start_date, end_date, data, first=coin, second=coin)
+            initial_investment, start_date, end_date, data, first=coin, second=selected_comparison)
 
-        result_message = f"Složená roční míra růstu je {cagr:.2%} za dobu {investment_length:.2f} {years}. Výnos je {investment_return} Kč."
+        result_message = f"Složená roční míra růstu u {coin} je {cagr:.2%} za dobu {investment_length:.2f} {years}. Výnos je {investment_return} Kč. Složená roční míra růstu u {selected_comparison} je {cagr2:.2%} za dobu {investment_length:.2f} {years}. Výnos je {investment_return2} Kč."
         # If no errors, process the valid data (example: display the result or perform calculations)
         return render_template("calculator.html", coin=coin, start_date=start_date, end_date=end_date,
                                amount=amount, result_message=result_message, posted=1)
