@@ -2,6 +2,9 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from datetime import datetime
+
+
 
 class Plotting():
     def __init__(self):
@@ -10,8 +13,11 @@ class Plotting():
     def run_plot(self, start_date, end_date, data, initial_investment, first, second):
         if second == 'S&P 500':
             self.plot_crypto_stock(data, start_date, end_date, first_crypto=first, stock=second, initial_investment=initial_investment)
+            self.investment(start_date, end_date, data, first, second)
         else:
             self.plot_crypto(data, start_date, end_date, first_crypto=first, second_crypto=second, initial_investment=initial_investment)
+            self.investment(start_date, end_date, data, first, second)
+
 
     def plot_crypto(self, data, start_date, end_date, first_crypto, second_crypto, initial_investment):
         df1 = data[data['Currency'] == first_crypto]
@@ -55,7 +61,7 @@ class Plotting():
         plt.title(f"Investment Growth of {first_crypto} & {second_crypto} Over Time\nInitial Investment: {initial_investment} USD", fontsize=16, fontweight='bold', color='darkblue', pad=20)
         plt.grid(True, linestyle='--', alpha=0.7)
         fig.tight_layout()
-        plt.savefig('media/crypto.png')
+        plt.savefig('crypto.png')
         plt.show()
 
 
@@ -105,6 +111,46 @@ class Plotting():
         plt.title(f"Investment Growth of {first_crypto} & {stock} Over Time\nInitial Investment: {initial_investment} USD", fontsize=16, fontweight='bold', color='darkblue', pad=20)
         plt.grid(True, linestyle='--', alpha=0.7)
         fig.tight_layout()
-        plt.savefig('media/crypto.png')
+        plt.savefig('crypto.png')
         plt.show()
+
+
+    #calculator
+    def investment(self, initial_investment, final_value, start_date: str, end_date: str, data, first, second) -> tuple:
+        # Convert input strings to datetime objects
+        if second == 'S&P 500':
+            df1 = data[data['Currency'] == first]
+            final_value1 = initial_investment * df1['Close'].iloc[-1]
+            final_value2 = initial_investment * df1['Stock Close'].iloc[-1]
+            cagr1 = (final_value1 / initial_investment) ** (1 / years) - 1
+            cagr2 = (final_value2 / initial_investment) ** (1 / years) - 1
+            investment_return1 = final_value1 - initial_investment
+            investment_return2 = final_value2 - initial_investment
+
         
+        else:
+            df1 = data[data['Currency'] == first]
+            df2 = data[data['Currency'] == second]
+            final_value1 = initial_investment * df1['Close'].iloc[-1]
+            final_value2 = initial_investment * df2['Close'].iloc[-1]
+            cagr1 = (final_value1 / initial_investment) ** (1 / years) - 1
+            cagr2 = (final_value2 / initial_investment) ** (1 / years) - 1
+            investment_return1 = final_value1 - initial_investment
+            investment_return2 = final_value2 - initial_investment
+
+
+        start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
+        end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
+
+        # Calculate the difference in days
+        delta = end_date_obj - start_date_obj
+
+        # Convert the difference in days to years (accounting for leap years)
+        years = delta.days / 365
+
+        # Return both CAGR, the length of the investment in years, and the investment return
+        return cagr1, cagr2, final_value1, final_value2, years, investment_return1, investment_return2
+    
+
+
+       
