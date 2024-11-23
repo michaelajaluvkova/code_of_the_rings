@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from engeto import DataDownloads
 from datetime import datetime
+from funkce_cal import investment
 
 
 downloader = DataDownloads()
@@ -96,6 +97,8 @@ def calculator():
         # If there are any error messages, return the template with errors
         if error_messages:
             return render_template("calculator.html", cryptocurrencies=cryptocurrencies, error_messages=error_messages)
+
+        # here enter the function calling
 
         # If no errors, process the valid data (example: display the result or perform calculations)
         return render_template("result_calculator.html", coin=coin, start_date=start_date, end_date=end_date,
