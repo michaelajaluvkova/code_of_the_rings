@@ -115,13 +115,12 @@ def calculator():
         date_difference = end_date_obj - start_date_obj
         investment_length = date_difference.days
 
-        investment_return = 300
-        if investment_length == 1:
-            year_word = "rok"
-        elif 1 < investment_length < 2:
-            year_word = "roku"
-        else:
-            year_word = "let"
+#        if investment_length == 1:
+ #           year_word = "rok"
+  #      elif 1 < investment_length < 2:
+   #         year_word = "roku"
+    #    else:
+     #       year_word = "let"
             
         data = downloader.main(start_date=start_date, end_date=end_date)
         plot = Plotting()
