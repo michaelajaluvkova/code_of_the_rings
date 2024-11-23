@@ -75,11 +75,11 @@ def calculator():
 
         # Validate coin
         # Check if cryptocurrency and comparison are valid
-        if selected_crypto not in cryptocurrencies or selected_comparison not in comparisons:
+        if coin not in cryptocurrencies or selected_comparison not in comparisons:
             error_messages.append("Neplatná volba! Prosím zvolte platnou kryptoměnu a srovnávací bázi.")
 
         # Check if the selected cryptocurrency and comparison are the same
-        if selected_crypto == selected_comparison:
+        if coin == selected_comparison:
             error_messages.append(
                 "Kryptoměna a srovnávací báze nemohou být stejné. Prosím vyberte jiné hodnoty.")
         # Validate dates
