@@ -16,7 +16,8 @@ def home():
 def comparison():
     cryptocurrencies = downloader.get_top_10_cryptos()
     #cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
-    comparisons = ['Stock', 'USD']
+    comparisons = downloader.get_top_10_cryptos_denca() + ['S&P 500']
+
     selected_date = None
 
     if request.method == "POST":
