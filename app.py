@@ -87,7 +87,7 @@ def calculator():
 
         # Validate amount
         try:
-            amount = float(amount)
+            amount = int(amount)
             if amount < 0:
                 error_messages.append("Amount must be a positive number.")
         except ValueError:

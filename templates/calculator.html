@@ -44,15 +44,15 @@
     }
 </style>
 {% block title %}
-<h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Calculator</h1>
+<h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Kalkulátor</h1>
 {% endblock %}
 
 {% block content %}
     <div class="form-container" style="text-align: center; font-family: 'Open Sans', sans-serif;">
-        <h2>Please select cryptocurrency and comparison details.</h2>
+        <h2>Vyberte kryptoměnu, datum nákupu a prodeje a celkovou částku investice.</h2>
         <form method="POST" action="{{ url_for('comparison') }}">
             <!-- Coin selection -->
-            <label for="coin">Coin:</label>
+            <label for="coin">Kryptoměna:</label>
             <select name="coin" id="coin">
                 {% for crypto in cryptocurrencies %}
                     <option value="{{ crypto }}">{{ crypto }}</option>
