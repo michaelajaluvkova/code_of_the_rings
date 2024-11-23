@@ -54,8 +54,8 @@ def comparison():
 
         # here enter values for the template to show!
 
-        return render_template("result_comparison.html", selected_crypto=selected_crypto,
-                               selected_comparison=selected_comparison)
+        return render_template("comparison.html", selected_crypto=selected_crypto,
+                               selected_comparison=selected_comparison, posted=1)
 
     else:
         return render_template('Comparison.html', cryptocurrencies=cryptocurrencies, comparisons=comparisons)
