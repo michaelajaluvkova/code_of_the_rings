@@ -126,7 +126,7 @@ def calculator():
         data = downloader.main(start_date=start_date, end_date=end_date)
         plot = Plotting()
         plot.run_plot(start_date, end_date=end_date, data=data, initial_investment=amount, first=coin,
-                      second=seleted_comparison)  #### creates media/crypto.png
+                      second= selected_comparison)  #### creates media/crypto.png
 
         cagr, cagr2, final_value, final_value2, years, investment_return, investment_return2 = plot.investment(initial_investment=amount, start_date=start_date, end_date=end_date, data=data, first=coin, second=selected_comparison)
 
