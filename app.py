@@ -128,7 +128,7 @@ def calculator():
         result_message = f"Složená roční míra růstu je {cagr:.2%} za dobu {investment_length:.2f} {years}. Výnos je {investment_return} Kč."
         # If no errors, process the valid data (example: display the result or perform calculations)
         return render_template("calculator.html", coin=coin, start_date=start_date, end_date=end_date,
-                               amount=amount, result_message=result_message)
+                               amount=amount, result_message=result_message, posted=1)
 
     return render_template("calculator.html", cryptocurrencies=cryptocurrencies)
 
