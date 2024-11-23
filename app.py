@@ -110,7 +110,6 @@ def calculator():
                                    error_message="\n".join(
                                        error_messages))  # Join the error messages with <br> for new lines
         # here enter the function calling
-        investment_length = end_date - start_date
         start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
         end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
         date_difference = end_date_obj - start_date_obj
