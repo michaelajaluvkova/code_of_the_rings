@@ -26,23 +26,23 @@ def comparison():
 
         # Check if cryptocurrency and comparison are valid
         if selected_crypto not in cryptocurrencies or selected_comparison not in comparisons:
-            error_messages.append("Invalid selection! Please choose a valid cryptocurrency and comparison to it.")
+            error_messages.append("Neplatná volba! Prosím zvolte platnou kryptoměnu a srovnávací bázi.")
 
         # Check if the selected cryptocurrency and comparison are the same
         if selected_crypto == selected_comparison:
             error_messages.append(
-                "The cryptocurrency and comparison cannot be the same. Please select different values.")
+                "Kryptoměna a srovnávací báze nemohou být stejné. Prosím vyberte jiné hodnoty.")
 
         # Check if a date is selected
         if not selected_date:
-            error_messages.append("Please select a valid date.")
+            error_messages.append("Prosím zvolte platné datum.")
 
         # Validate date format
         try:
             valid_date = datetime.strptime(selected_date, '%Y-%m-%dT%H:%M')
         except (ValueError, TypeError) as e:
             if not "Please select a valid date." in error_messages:
-                error_messages.append("Invalid date format. Please select a valid date and time.")
+                error_messages.append("Neplatný formát data. Prosím zvolte platné datum a čas.")
 
         # If there are error messages, return the template with them
         if error_messages:
@@ -70,28 +70,28 @@ def calculator():
 
         # Validate coin
         if coin not in cryptocurrencies:
-            error_messages.append("Invalid coin selected. Please select a valid cryptocurrency.")
+            error_messages.append("Neplatná volba coinu. Prosím zvolte platnou kryptoměnu.")
 
         # Validate dates
         if not start_date or not end_date:
-            error_messages.append("Both start date and end date are required.")
+            error_messages.append("Je vyžadováno datum začátku a datum konce.")
         else:
             try:
                 start_date_obj = datetime.strptime(start_date, '%Y-%m-%dT%H:%M')
                 end_date_obj = datetime.strptime(end_date, '%Y-%m-%dT%H:%M')
 
                 if start_date_obj >= end_date_obj:
-                    error_messages.append("Start date must be earlier than end date.")
+                    error_messages.append("Datum začátku musí být dřívější než konečné datum.")
             except ValueError:
-                error_messages.append("Invalid date format. Please select valid start and end dates.")
+                error_messages.append("Neplatný formát data. Prosím zvolte platné datum začátku a konce.")
 
         # Validate amount
         try:
             amount = int(amount)
             if amount < 0:
-                error_messages.append("Amount must be a positive number.")
+                error_messages.append("Množství musí být kladné číslo.")
         except ValueError:
-            error_messages.append("Invalid amount. Please enter a valid number.")
+            error_messages.append("Neplatné množství. Prosím zvolte platné číslo.")
 
         # If there are any error messages, return the template with errors
         if error_messages:
