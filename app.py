@@ -99,10 +99,20 @@ def calculator():
             return render_template("calculator.html", cryptocurrencies=cryptocurrencies, error_messages=error_messages)
 
         # here enter the function calling
+        cagr = 3
+        investment_length = 3
+        investment_return = 300
+        if investment_length == 1:
+            year_word = "rok"
+        elif 1 < investment_length < 2:
+            year_word = "roku"
+        else:
+            year_word = "let"
 
+        result_message = f"Složená roční míra růstu je {cagr:.2%} za dobu {investment_length:.2f} {year_word}. Výnos je {investment_return} Kč."
         # If no errors, process the valid data (example: display the result or perform calculations)
-        return render_template("result_calculator.html", coin=coin, start_date=start_date, end_date=end_date,
-                               amount=amount)
+        return render_template("calculator.html", coin=coin, start_date=start_date, end_date=end_date,
+                               amount=amount, result_message=result_message)
 
     return render_template("calculator.html", cryptocurrencies=cryptocurrencies)
 
