@@ -107,4 +107,4 @@ class Plotting():
         fig.tight_layout()
         plt.savefig('media/crypto.png')
         plt.show()
-        return
+        
