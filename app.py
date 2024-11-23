@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from engeto import DataDownloads
 
 downloader = DataDownloads()
@@ -24,9 +24,9 @@ def comparison():
             return render_template("Comparison.html", cryptocurrencies=cryptocurrencies, comparisons=comparisons,
                                    error_message=error_message)
 
-        return render_template("result_comparison.html",
-                               selected_crypto=selected_crypto,
-                               selected_comparison=selected_comparison)
+        return redirect(url_for('result_comparison',
+                                selected_crypto=selected_crypto,
+                                selected_comparison=selected_comparison))
 
     else:
         return render_template('Comparison.html', cryptocurrencies=cryptocurrencies, comparisons=comparisons)
@@ -35,9 +35,14 @@ def comparison():
 def calculator():
     return render_template('calculator.html')
 
-@app.route('/result_comparison')
+@app.route('/result_comparison', methods=['GET', 'POST'])
 def result_comparison():
-    return render_template('result_comparison.html')
+    selected_crypto = request.args.get('selected_crypto')
+    selected_comparison = request.args.get('selected_comparison')
+
+    return render_template('result_comparison',
+                                selected_crypto=selected_crypto,
+                                selected_comparison=selected_comparison)
 
 if __name__ == "__main__":
     app.run(debug=True)
