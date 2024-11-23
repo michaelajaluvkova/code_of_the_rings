@@ -96,8 +96,9 @@ def calculator():
 
         # If there are any error messages, return the template with errors
         if error_messages:
-            return render_template("calculator.html", cryptocurrencies=cryptocurrencies, error_messages=error_messages)
-
+            return render_template("calculator.html", cryptocurrencies=cryptocurrencies,
+                                   error_message="\n".join(
+                                       error_messages))  # Join the error messages with <br> for new lines
         # here enter the function calling
         cagr = 3
         investment_length = 3
