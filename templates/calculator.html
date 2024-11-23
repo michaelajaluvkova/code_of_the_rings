@@ -1,8 +1,78 @@
 {% extends "layout.html" %}
 
+<style>
+    .form-container {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin: 50px auto;
+        background-color: #f9f9f9;
+    }
+    .form-container h2 {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .form-container label {
+        display: block;  /* Make sure label is block-level */
+        margin-bottom: 5px; /* Add some space below the label */
+        font-size: 14px;
+        color: #333;
+    }
+    .form-container select,
+    .form-container input[type="datetime-local"],
+    .form-container input[type="number"],
+    .form-container button {
+        width: 100%; /* Ensure input fields take full width */
+        padding: 10px;
+        margin-bottom: 10px; /* Add space between inputs */
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;  /* Ensures padding is included in width calculation */
+    }
+    .form-container input[type="datetime-local"] {
+        font-family: 'Open Sans', sans-serif;  /* Ensures the font is consistent */
+    }
+    .form-container button {
+        background-color: #148ab8;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .form-container button:hover {
+        background-color: #117a98;
+    }
+</style>
 {% block title %}
 <h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Calculator</h1>
 {% endblock %}
 
 {% block content %}
+    <div class="form-container" style="text-align: center; font-family: 'Open Sans', sans-serif;">
+        <h2>Please select cryptocurrency and comparison details.</h2>
+        <form method="POST" action="{{ url_for('comparison') }}">
+            <!-- Coin selection -->
+            <label for="coin">Coin:</label>
+            <select name="coin" id="coin">
+                {% for crypto in cryptocurrencies %}
+                    <option value="{{ crypto }}">{{ crypto }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Start Date selection -->
+            <label for="start_date">Datum nákupu:</label>
+            <input type="datetime-local" name="start_date" id="start_date">
+
+            <!-- End Date selection -->
+            <label for="end_date">Datum prodeje:</label>
+            <input type="datetime-local" name="end_date" id="end_date">
+
+            <!-- Amount selection -->
+            <label for="amount">Částka v Kč:</label>
+            <input type="number" name="amount" id="amount" step="any" min="0">
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+    </div>
 {% endblock %}

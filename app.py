@@ -13,7 +13,6 @@ def home():
 
 @app.route('/comparison', methods=['GET', 'POST'])
 def comparison():
-    # doplnit funkce na listy!
     cryptocurrencies = downloader.get_top_10_cryptos()
     #cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
     comparisons = ['Stock', 'USD']
@@ -61,7 +60,49 @@ def comparison():
 
 @app.route('/calculator', methods=['GET', 'POST'])
 def calculator():
-    return render_template('calculator.html')
+    cryptocurrencies = downloader.get_top_10_cryptos()
+    if request.method == "POST":
+        coin = request.form.get('coin')
+        start_date = request.form.get('start_date')
+        end_date = request.form.get('end_date')
+        amount = request.form.get('amount')
+        error_messages = []
+
+        # Validate coin
+        if coin not in cryptocurrencies:
+            error_messages.append("Invalid coin selected. Please select a valid cryptocurrency.")
+
+        # Validate dates
+        if not start_date or not end_date:
+            error_messages.append("Both start date and end date are required.")
+        else:
+            try:
+                start_date_obj = datetime.strptime(start_date, '%Y-%m-%dT%H:%M')
+                end_date_obj = datetime.strptime(end_date, '%Y-%m-%dT%H:%M')
+
+                if start_date_obj >= end_date_obj:
+                    error_messages.append("Start date must be earlier than end date.")
+            except ValueError:
+                error_messages.append("Invalid date format. Please select valid start and end dates.")
+
+        # Validate amount
+        try:
+            amount = float(amount)
+            if amount < 0:
+                error_messages.append("Amount must be a positive number.")
+        except ValueError:
+            error_messages.append("Invalid amount. Please enter a valid number.")
+
+        # If there are any error messages, return the template with errors
+        if error_messages:
+            return render_template("calculator.html", cryptocurrencies=cryptocurrencies, error_messages=error_messages)
+
+        # If no errors, process the valid data (example: display the result or perform calculations)
+        return render_template("result_calculator.html", coin=coin, start_date=start_date, end_date=end_date,
+                               amount=amount)
+
+    return render_template("calculator.html", cryptocurrencies=cryptocurrencies)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -44,7 +44,7 @@
 </style>
 
 {% block title %}
-<h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Comparison</h1>
+<h1 style="font-family: 'Orbitron', sans-serif; color: #148ab8; padding: 20px; text-align: center;">Srovnání</h1>
 {% endblock %}
 
 {% block content %}
@@ -60,7 +60,7 @@
             </select>
 
             <!-- Comparison selection -->
-            <label for="comparison">Comparison:</label>
+            <label for="comparison">Srovnání:</label>
             <select name="comparison" id="comparison">
                 {% for compare in comparisons %}
                     <option value="{{ compare }}">{{ compare }}</option>
@@ -68,7 +68,7 @@
             </select>
 
             <!-- Date and Time selection -->
-            <label for="end_time">Select Date and Time:</label>
+            <label for="end_time">Vyberte datum:</label>
             <input type="datetime-local" name="date" id="end_time" name="end_time">
 
             <!-- Submit button -->
