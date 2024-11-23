@@ -8,6 +8,9 @@ def home():
 
 @app.route('/comparison', methods=['GET', 'POST'])
 def comparison():
+    cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
+    comparisons = ['Stock', 'USD']
+
     if request.method == "POST":
         selected_crypto = request.form.get('cryptocurrency')
         selected_comparison = request.form.get('comparison')
@@ -17,8 +20,6 @@ def comparison():
                                selected_comparison=selected_comparison)
 
     else:
-        cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
-        comparisons = ['Stock', 'USD']
         return render_template('Comparison.html', cryptocurrencies=cryptocurrencies, comparisons=comparisons)
 
 @app.route('/calculator', methods=['GET', 'POST'])
