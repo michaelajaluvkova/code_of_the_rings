@@ -41,7 +41,7 @@ def comparison():
 
         # Validate date format
         try:
-            valid_date = datetime.strptime(selected_date, '%Y-%m-%dT%H:%M')
+            valid_date = datetime.strptime(selected_date, '%Y-%m-%d')
         except (ValueError, TypeError) as e:
             if not "Please select a valid date." in error_messages:
                 error_messages.append("Neplatný formát data. Prosím zvolte platné datum a čas.")
@@ -79,8 +79,8 @@ def calculator():
             error_messages.append("Je vyžadováno datum začátku a datum konce.")
         else:
             try:
-                start_date_obj = datetime.strptime(start_date, '%Y-%m-%dT%H:%M')
-                end_date_obj = datetime.strptime(end_date, '%Y-%m-%dT%H:%M')
+                start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
+                end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
 
                 if start_date_obj >= end_date_obj:
                     error_messages.append("Datum začátku musí být dřívější než konečné datum.")
