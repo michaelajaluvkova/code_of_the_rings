@@ -3,6 +3,7 @@ from engeto import DataDownloads
 from datetime import datetime
 from funkce_cal import investment
 
+from datetime import datetime
 
 downloader = DataDownloads()
 
@@ -110,6 +111,11 @@ def calculator():
                                        error_messages))  # Join the error messages with <br> for new lines
         # here enter the function calling
         investment_length = end_date - start_date
+        start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
+        end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
+        date_difference = end_date_obj - start_date_obj
+        investment_length = date_difference.days
+
         investment_return = 300
         if investment_length == 1:
             year_word = "rok"
@@ -126,7 +132,7 @@ def calculator():
         cagr, cagr2, final_value, final_value2, years, investment_return, investment_return2 = plot.investment(
             initial_investment, start_date, end_date, data, first=coin, second=selected_comparison)
 
-        result_message = f"Složená roční míra růstu u {coin} je {cagr:.2%} za dobu {investment_length:.2f} {years}. Výnos je {investment_return} Kč. Složená roční míra růstu u {selected_comparison} je {cagr2:.2%} za dobu {investment_length:.2f} {years}. Výnos je {investment_return2} Kč."
+        result_message = f"Složená roční míra růstu u {coin} je {cagr:.2%} za dobu {investment_length:.2f} dni. Výnos je {investment_return} Kč. Složená roční míra růstu u {selected_comparison} je {cagr2:.2%} za dobu {investment_length:.2f} dni. Výnos je {investment_return2} Kč."
         # If no errors, process the valid data (example: display the result or perform calculations)
         return render_template("calculator.html", coin=coin, start_date=start_date, end_date=end_date,
                                amount=amount, result_message=result_message, posted=1)
