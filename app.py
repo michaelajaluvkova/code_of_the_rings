@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request
+from engeto import DataDownloads
+
+downloader = DataDownloads()
 
 app = Flask(__name__)
 
@@ -9,7 +12,8 @@ def home():
 @app.route('/comparison', methods=['GET', 'POST'])
 def comparison():
     # doplnit funkce na listy!
-    cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
+    cryptocurrencies = downloader.get_top_10_cryptos()
+    #cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
     comparisons = ['Stock', 'USD']
 
     if request.method == "POST":
