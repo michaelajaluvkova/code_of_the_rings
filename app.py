@@ -131,7 +131,7 @@ def calculator():
         return render_template("calculator.html", coin=coin, start_date=start_date, end_date=end_date,
                                amount=amount, result_message=result_message, posted=1)
 
-    return render_template("calculator.html", cryptocurrencies=cryptocurrencies)
+    return render_template("calculator.html", cryptocurrencies=cryptocurrencies, comparisons=comparisons)
 
 
 if __name__ == "__main__":
