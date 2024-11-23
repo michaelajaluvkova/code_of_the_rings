@@ -1,7 +1,6 @@
 import yfinance as yf
 import pandas as pd
 from pycoingecko import CoinGeckoAPI
-from yahoo_fin import stock_info
 
 cg = CoinGeckoAPI()
 
@@ -90,8 +89,20 @@ class DataDownloads:
         daily_df = pd.DataFrame(all_data)
 
         return daily_df
+    def timeline_events(self):
+        df = pd.read_csv('timeline_events.csv')
+        df['Date'] = df['Date'].str.extract(r'^(.*?)(?=\s*[-–]|$)')[0]
 
-    def merge_function(self, crypto, sp_500, inflation, exchange):
+        valid_date_pattern = r'^[A-Za-z]+\s\d{1,2}$'
+        df = df[df['Date'].str.match(valid_date_pattern)]
+
+        df['single_date'] = df['Year'].astype(str) + ' ' + df['Date']
+        df['single_date'] = pd.to_datetime(df['single_date'], format='%Y %B %d')
+
+        data = df[['single_date', 'Event']]
+        return data
+        
+    def merge_function(self, crypto, sp_500, inflation, exchange, events):
         merged_df = pd.merge(crypto, sp_500, on='Date', how='outer')
         merged_df['Stock Close'] = merged_df['Stock Close'].fillna(method='ffill')
         merged_df['Stock Volume'] = merged_df['Stock Volume'].fillna(method='ffill')
@@ -107,6 +118,9 @@ class DataDownloads:
         merged_df = pd.merge(merged_df, inflation, on='Date', how='inner')
         merged_df = pd.merge(merged_df, exchange, on='Date', how='inner')
         merged_df['Close CZK'] = merged_df['Close'] * merged_df['Close_exchange']
+        merged_df = pd.merge(merged_df, events, left_on='Date', right_on='single_date', how='left')
+        merged_df = merged_df.drop(columns=['single_date'])
+
         return merged_df
 
     def main(self, start_date, end_date):
@@ -117,6 +131,7 @@ class DataDownloads:
 
         sp_500 = down.get_sp500_tickers(start_date, end_date)
         inflation = down.download_inflation()
-        merged_df = down.merge_function(crypto, sp_500, inflation, exchange)
+        events = down.timeline_events()
+        merged_df = down.merge_function(crypto, sp_500, inflation, exchange, events)
         merged_df.to_csv('crypto_structured.csv', index=False)
         return merged_df
