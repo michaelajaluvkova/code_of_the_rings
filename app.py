@@ -66,15 +66,21 @@ def calculator():
     
     if request.method == "POST":
         coin = request.form.get('coin')
+        selected_comparison = request.form.get('comparison')
         start_date = request.form.get('start_date')
         end_date = request.form.get('end_date')
         amount = request.form.get('amount')
         error_messages = []
 
         # Validate coin
-        if coin not in cryptocurrencies:
-            error_messages.append("Neplatná volba coinu. Prosím zvolte platnou kryptoměnu.")
+        # Check if cryptocurrency and comparison are valid
+        if selected_crypto not in cryptocurrencies or selected_comparison not in comparisons:
+            error_messages.append("Neplatná volba! Prosím zvolte platnou kryptoměnu a srovnávací bázi.")
 
+        # Check if the selected cryptocurrency and comparison are the same
+        if selected_crypto == selected_comparison:
+            error_messages.append(
+                "Kryptoměna a srovnávací báze nemohou být stejné. Prosím vyberte jiné hodnoty.")
         # Validate dates
         if not start_date or not end_date:
             error_messages.append("Je vyžadováno datum začátku a datum konce.")

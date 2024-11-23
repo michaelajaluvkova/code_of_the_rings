@@ -59,6 +59,16 @@
                 {% endfor %}
             </select>
 
+            <!-- Comparison selection -->
+            <label for="comparison">Srovnání:</label>
+            <select name="comparison" id="comparison">
+                {% for compare in comparisons %}
+                    <option value="{{ compare }}">{{ compare }}</option>
+                {% endfor %}
+            </select>
+
+            <br>
+
             <!-- Start Date selection -->
             <label for="start_date">Datum nákupu:</label>
             <input type="date" name="start_date" id="start_date">
