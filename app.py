@@ -53,6 +53,10 @@ def comparison():
                                        error_messages))  # Join the error messages with <br> for new lines
 
         # here enter values for the template to show!
+        data = downloader.main(start_date=start_date, end_date=end_date)
+        plot = Plotting()
+        plot.run_plot(start_date, end_date, data, initial_investment, first=first,
+                      second=second)  #### creates media/crypto.png
 
         return render_template("comparison.html", cryptocurrencies=cryptocurrencies, comparisons=comparisons, posted=1)
 
@@ -100,8 +104,7 @@ def calculator():
                                    error_message="\n".join(
                                        error_messages))  # Join the error messages with <br> for new lines
         # here enter the function calling
-        cagr = 3
-        investment_length = 3
+        investment_length = end_date - start_date
         investment_return = 300
         if investment_length == 1:
             year_word = "rok"
@@ -110,7 +113,10 @@ def calculator():
         else:
             year_word = "let"
 
-        result_message = f"Složená roční míra růstu je {cagr:.2%} za dobu {investment_length:.2f} {year_word}. Výnos je {investment_return} Kč."
+        cagr, cagr2, final_value, final_value2, years, investment_return, investment_return2 = plot.investment(
+            initial_investment, start_date, end_date, data, first=coin, second=coin)
+
+        result_message = f"Složená roční míra růstu je {cagr:.2%} za dobu {investment_length:.2f} {years}. Výnos je {investment_return} Kč."
         # If no errors, process the valid data (example: display the result or perform calculations)
         return render_template("calculator.html", coin=coin, start_date=start_date, end_date=end_date,
                                amount=amount, result_message=result_message)
