@@ -13,6 +13,13 @@ class DataDownloads:
         top_10 = [f"{coin['symbol'].upper()}-USD" for coin in sorted_coins[:10]]
 
         return top_10
+        
+    def get_top_10_cryptos_denca(self):
+        coins = cg.get_coins_markets(vs_currency='usd')
+        sorted_coins = sorted(coins, key=lambda x: x['market_cap'], reverse=True)
+        top_10 = [coin['symbol'].upper().replace('-USD', '') for coin in sorted_coins[:10]]
+
+        return top_10
 
     def usd_czk(self, start_date, end_date):
         data = yf.download('USDCZK=X', start=start_date, end=end_date)
