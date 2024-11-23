@@ -14,7 +14,7 @@ def home():
 
 @app.route('/comparison', methods=['GET', 'POST'])
 def comparison():
-    cryptocurrencies = downloader.get_top_10_cryptos()
+    cryptocurrencies = downloader.get_top_10_cryptos_denca()
     #cryptocurrencies = ['Bitcoin', 'Ethereum', 'Litecoin']
     comparisons = downloader.get_top_10_cryptos_denca() + ['S&P 500']
 
