@@ -8,6 +8,7 @@ downloader = DataDownloads()
 
 app = Flask(__name__)
 
+"""
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -58,8 +59,8 @@ def comparison():
 
     else:
         return render_template('Comparison.html', cryptocurrencies=cryptocurrencies, comparisons=comparisons)
-
-@app.route('/calculator', methods=['GET', 'POST'])
+"""
+@app.route('/', methods=['GET', 'POST'])
 def calculator():
     cryptocurrencies = downloader.get_top_10_cryptos_denca()
     comparisons = downloader.get_top_10_cryptos_denca() + ['S&P 500']
