@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from engeto import DataDownloads
 from datetime import datetime
 from funkce_cal import investment
+from plotting import Plotting
 
 from datetime import datetime
 
